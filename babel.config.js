@@ -5,14 +5,9 @@ module.exports = {
 		[
 			'module-resolver',
 			{
-				root: ['./'], // Project root
+				root: ['./'],
 				alias: {
-					'@components/*': './src/components/*',
-					'@screens/*': './src/screens/*',
-					'@utils/*': './src/utils/*',
-					'@services/*': './src/services/*',
-					'@assets/*': './src/assets/*',
-					'@hooks/*': './src/hooks/*',
+					'@': './src',
 				},
 			},
 		],

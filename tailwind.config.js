@@ -5,7 +5,11 @@ module.exports = {
 		'./src/**/*.{js,jsx,ts,tsx}', // Scan all JS, JSX, TS, and TSX files in the src folder
 	],
 	theme: {
-		extend: {}, // You can customize your theme here
+		extend: {
+			colors: {
+				peach: '#e9b77b',
+			},
+		}, // You can customize your theme here
 	},
 	plugins: [], // Add any TailwindCSS plugins if needed
 };

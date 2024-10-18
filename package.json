@@ -9,14 +9,15 @@
 		"ios:clean": "cd ios && xcodebuild clean && cd .. && react-native run-ios",
 		"pod-install": "cd ios && pod install && cd ..",
 		"pod-reinstall": "cd ios && rm -rf Pods Podfile.lock && pod install && cd ..",
-		"clean": "cd android && ./gradlew clean && cd ../ios && xcodebuild clean && cd ..",
+		"clean": "yarn postbuild && cd android && ./gradlew clean && cd ../ios && xcodebuild clean && cd ..",
 		"start:clean": "react-native start --reset-cache",
 		"lint": "eslint .",
 		"format": "prettier --write .",
-		"start": "react-native start",
+		"start": "react-native start --verbose",
 		"test": "jest",
 		"postinstall": "echo 'added' && yarn pod-install && echo 'pods installed'",
-		"addwp": "yarn add $* && yarn pod-reinstall"
+		"addwp": "yarn add $* && yarn pod-reinstall",
+		"postbuild": "xattr -w com.apple.xcode.CreatedByBuildSystem true ios/build"
 	},
 	"dependencies": {
 		"@react-navigation/native": "^6.1.18",
@@ -26,7 +27,7 @@
 		"react": "18.3.1",
 		"react-hook-form": "^7.53.0",
 		"react-native": "0.75.4",
-		"react-native-mmkv": "^3.0.2",
+		"react-native-mmkv": "latest",
 		"react-native-safe-area-context": "^4.11.0",
 		"react-native-screens": "^3.34.0"
 	},
@@ -54,6 +55,7 @@
 		"eslint-plugin-simple-import-sort": "^12.1.1",
 		"jest": "^29.6.3",
 		"prettier": "^3.3.3",
+		"react-devtools": "^6.0.1",
 		"react-test-renderer": "18.3.1",
 		"tailwindcss": "3.3.2",
 		"typescript": "5.0.4"
