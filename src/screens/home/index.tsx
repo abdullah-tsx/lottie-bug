@@ -1,6 +1,6 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Button, Text, TextInput, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const HomeScreen = () => {
 	const { control, handleSubmit } = useForm();
@@ -33,7 +33,12 @@ const HomeScreen = () => {
 						name="test"
 						control={control}
 					/>
-					<Button title="submit" onPress={onSubmit} />
+					<TouchableOpacity
+						onPress={onSubmit}
+						className="items-center justify-around bg-black rounded-md px-4"
+					>
+						<Text className="text-white">Submit</Text>
+					</TouchableOpacity>
 				</View>
 			</View>
 		</View>

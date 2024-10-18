@@ -4115,6 +4115,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clsx@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "clsx@npm:2.1.1"
+  checksum: acd3e1ab9d8a433ecb3cc2f6a05ab95fe50b4a3cfc5ba47abb6cbf3754585fcb87b84e90c822a1f256c4198e3b41c7f6c391577ffc8678ad587fc0976b24fd57
+  languageName: node
+  linkType: hard
+
 "co@npm:^4.6.0":
   version: 4.6.0
   resolution: "co@npm:4.6.0"
@@ -10183,6 +10190,7 @@ __metadata:
     axios: ^1.7.7
     babel-jest: ^29.6.3
     babel-plugin-module-resolver: ^5.0.2
+    clsx: ^2.1.1
     eslint: ^8.19.0
     eslint-config-prettier: ^9.1.0
     eslint-plugin-jest: ^28.8.3
@@ -10202,6 +10210,7 @@ __metadata:
     react-native-safe-area-context: ^4.11.0
     react-native-screens: ^3.34.0
     react-test-renderer: 18.3.1
+    tailwind-merge: ^2.5.4
     tailwindcss: 3.3.2
     typescript: 5.0.4
   languageName: unknown
@@ -10608,6 +10617,13 @@ __metadata:
     "@pkgr/core": ^0.1.0
     tslib: ^2.6.2
   checksum: 3a30e828efbdcf3b50fccab4da6e90ea7ca24d8c5c2ad3ffe98e07d7c492df121e0f75227c6e510f96f976aae76f1fa4710cb7b1d69db881caf66ef9de89360e
+  languageName: node
+  linkType: hard
+
+"tailwind-merge@npm:^2.5.4":
+  version: 2.5.4
+  resolution: "tailwind-merge@npm:2.5.4"
+  checksum: c22adafebd23fc3c7f0ad25935791c10816d4a46460f000ebca4de8d8d22f7652a3746a3d9146599a4648aa92ab390340f6ded04b9152afd2b75fd96929399db
   languageName: node
   linkType: hard
 
