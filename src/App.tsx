@@ -1,15 +1,15 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
 
+import Layout from '@/components/layout';
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 import HomeScreen from '@/screens/home';
 
 const App = () => {
 	return (
 		<GluestackUIProvider>
-			<SafeAreaView className="flex-1 bg-peach">
+			<Layout>
 				<HomeScreen />
-			</SafeAreaView>
+			</Layout>
 		</GluestackUIProvider>
 	);
 };
