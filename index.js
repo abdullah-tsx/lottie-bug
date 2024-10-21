@@ -1,6 +1,7 @@
 /**
  * @format
  */
+import './global.css';
 
 import { AppRegistry } from 'react-native';
 
