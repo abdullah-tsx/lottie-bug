@@ -73,6 +73,7 @@ module.exports = {
 		'no-eval': 'off', // Disable restriction on eval (customize based on your preference)
 		'no-await-in-loop': 'off', // Allow await in loops
 		'no-restricted-syntax': 'off', // Disable restrictions on specific syntax
+		'react-native/no-raw-text': 'off',
 	},
 	settings: {
 		'import/resolver': {

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
+
+import { Button, ButtonText } from '@/components/ui/button.tsx';
+import { Input, InputField } from '@/components/ui/input.tsx';
 
 const HomeScreen = () => {
 	const { control, handleSubmit } = useForm();
@@ -15,30 +18,27 @@ const HomeScreen = () => {
 			<View>
 				<Text className="text-lg">Track your package</Text>
 				<Text className="text-lg">Enter your package Tracking number</Text>
-				<View className="flex-row w-full">
+				<View className="flex-row w-full gap-2">
 					<Controller
 						render={({ field: { onBlur, onChange, value } }) => {
 							return (
 								<>
-									<TextInput
-										onBlur={onBlur}
-										onChangeText={onChange}
-										value={value}
-										placeholder="Enter your package tracking number"
-										className="border rounded p-4 flex-1"
-									/>
+									<Input className="flex-1" variant="outline" size="md">
+										<InputField
+											onBlur={onBlur}
+											onChangeText={onChange}
+											value={value}
+										/>
+									</Input>
 								</>
 							);
 						}}
 						name="test"
 						control={control}
 					/>
-					<TouchableOpacity
-						onPress={onSubmit}
-						className="items-center justify-around bg-black rounded-md px-4"
-					>
-						<Text className="text-white">Submit</Text>
-					</TouchableOpacity>
+					<Button onPress={onSubmit}>
+						<ButtonText>Submit</ButtonText>
+					</Button>
 				</View>
 			</View>
 		</View>
