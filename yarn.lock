@@ -3187,6 +3187,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-native-vector-icons@npm:^6.4.18":
+  version: 6.4.18
+  resolution: "@types/react-native-vector-icons@npm:6.4.18"
+  dependencies:
+    "@types/react": "*"
+    "@types/react-native": ^0.70
+  checksum: 1ef458cb5e7a37f41eb400e3153940b1b152e4df76a7c06c7a47c712dbfe46e14b9999f04dde1bd074f338f850e161c6c925174ddea33386b74f8112c940065b
+  languageName: node
+  linkType: hard
+
+"@types/react-native@npm:^0.70":
+  version: 0.70.19
+  resolution: "@types/react-native@npm:0.70.19"
+  dependencies:
+    "@types/react": "*"
+  checksum: 79b504fa56340631079e7c20ea0d9412ec14147b76d0ce189f4403936f529ef1e6fd031383afab117846c5ae039123bcf3afc948bae4432269c6780282726f71
+  languageName: node
+  linkType: hard
+
 "@types/react-test-renderer@npm:^18.0.0":
   version: 18.3.0
   resolution: "@types/react-test-renderer@npm:18.3.0"
@@ -10150,6 +10169,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-timeline-flatlist@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "react-native-timeline-flatlist@npm:0.8.0"
+  peerDependencies:
+    react-native: ">= 0.58.2"
+  checksum: 08dd877443ea4189b51b37d592fa10c6b5a719219f38cdb4f1c64b1d6b10d813c8d8fb4d60cab2209770b9051f9a0a25f98ad4fff6c4670b7a2596fcbbb0ecf0
+  languageName: node
+  linkType: hard
+
 "react-native-vector-icons@npm:^10.2.0":
   version: 10.2.0
   resolution: "react-native-vector-icons@npm:10.2.0"
@@ -11012,6 +11040,7 @@ __metadata:
     "@react-navigation/native": ^6.1.18
     "@react-navigation/native-stack": ^6.11.0
     "@types/react": ^18.2.6
+    "@types/react-native-vector-icons": ^6.4.18
     "@types/react-test-renderer": ^18.0.0
     "@typescript-eslint/eslint-plugin": ^8.9.0
     "@typescript-eslint/parser": ^8.9.0
@@ -11039,6 +11068,7 @@ __metadata:
     react-native-safe-area-context: ^4.11.0
     react-native-screens: ^3.34.0
     react-native-svg: ^15.8.0
+    react-native-timeline-flatlist: ^0.8.0
     react-native-vector-icons: ^10.2.0
     react-test-renderer: 18.3.1
     tailwind-merge: ^2.5.4
