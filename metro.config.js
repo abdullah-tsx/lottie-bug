@@ -2,6 +2,11 @@
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { withNativeWind } = require('nativewind/metro');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const {
+	wrapWithReanimatedMetroConfig,
+	// eslint-disable-next-line @typescript-eslint/no-require-imports
+} = require('react-native-reanimated/metro-config');
 
 /**
  * Metro configuration
@@ -9,6 +14,11 @@ const { withNativeWind } = require('nativewind/metro');
  *
  * @type {import('metro-config').MetroConfig}
  */
-const config = mergeConfig(getDefaultConfig(__dirname));
+const baseConfig = getDefaultConfig(__dirname);
+const config = mergeConfig(baseConfig);
 
-module.exports = withNativeWind(config, { input: './global.css' });
+// Combine Reanimated and NativeWind configurations
+const reanimatedConfig = wrapWithReanimatedMetroConfig(config);
+const finalConfig = withNativeWind(reanimatedConfig, { input: './global.css' });
+
+module.exports = finalConfig;

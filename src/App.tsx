@@ -1,3 +1,5 @@
+import 'react-native-reanimated';
+
 import React from 'react';
 
 import Layout from '@/components/layout';

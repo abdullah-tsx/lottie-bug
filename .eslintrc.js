@@ -74,6 +74,7 @@ module.exports = {
 		'no-await-in-loop': 'off', // Allow await in loops
 		'no-restricted-syntax': 'off', // Disable restrictions on specific syntax
 		'react-native/no-raw-text': 'off',
+		'react-native/no-color-literals': 'off',
 	},
 	settings: {
 		'import/resolver': {

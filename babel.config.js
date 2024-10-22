@@ -9,6 +9,7 @@ module.exports = {
 					'@': './src',
 				},
 			},
+			'react-native-reanimated/plugin', //this has to be at the end https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/
 		],
 	],
 };

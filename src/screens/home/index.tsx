@@ -1,16 +1,22 @@
-import React from 'react';
+import { cn } from '@gluestack-ui/nativewind-utils/cn';
+import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
 	KeyboardAvoidingView,
+	Platform,
+	ScrollView,
 	Text,
-	TouchableWithoutFeedback,
 	View,
 } from 'react-native';
 import Timeline from 'react-native-timeline-flatlist';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 
-import ControlledInput from '@/components/controlled-input.tsx';
-import { Button, ButtonText } from '@/components/ui/button.tsx';
-import { useStorage } from '@/hooks/useStorage.ts';
+import ControlledInput from '@/components/controlled-input';
+import { Button, ButtonText } from '@/components/ui/button';
+import Chip from '@/components/ui/chip';
+import { Input, InputField } from '@/components/ui/input';
+import { useStorage } from '@/hooks/useStorage';
+import { TrackingFormData, TrackingSchema } from '@/schemas';
 
 const shipmentTrackingData = [
 	{
@@ -43,79 +49,138 @@ const shipmentTrackingData = [
 ];
 
 const HomeScreen = () => {
-	const { control, handleSubmit, reset } = useForm();
+	const [isAddressVisible, setIsAddressVisible] = useState(false);
+	const [isResultAvailable, setIsResultAvailable] = useState(false);
+	const {
+		control,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm<TrackingFormData>({
+		defaultValues: TrackingSchema.defaultValues,
+		resolver: TrackingSchema.resolver,
+	});
 
 	const { value: storeValue, setValue } = useStorage<string[]>('values', []);
 
 	const onSubmit = handleSubmit(values => {
 		if (storeValue && storeValue.length < 10)
-			setValue('values', [...(storeValue ?? []), values.test]);
+			setValue('values', [...(storeValue ?? []), values.trackingId]);
 		else if (storeValue) {
 			storeValue.pop();
-			setValue('values', [...(storeValue ?? []), values.test]);
+			setValue('values', [...(storeValue ?? []), values.trackingId]);
 		}
 		reset();
+		setIsResultAvailable(true);
 	});
 
+	const handleChipPress = useCallback(
+		(id: string) => {
+			const filtered = storeValue!.filter(item => item !== id);
+			setValue('values', filtered);
+		},
+		[setValue, storeValue],
+	);
+	//TODO: remove virtualized list warning and keyboard avoiding view
 	return (
-		<View className="flex-1 p-2 gap-8 pt-8">
-			<View className="flex-row w-full gap-2">
-				<ControlledInput
-					control={control}
-					name="test"
-					placeholder="Enter Tracking Number"
-				/>
-				<Button onPress={onSubmit}>
-					<ButtonText>Submit</ButtonText>
-				</Button>
-			</View>
-			<View className="flex-row w-full gap-2 flex-wrap">
-				{storeValue?.map((value, index) => {
-					return (
-						<TouchableWithoutFeedback
-							key={value + index}
-							onPress={() => {
-								console.log(value);
-							}}
-							onLongPress={() => {
-								const updated = storeValue.filter(value => value === value);
-								setValue('values', updated);
-							}}
-						>
-							<Text className="bg-gray-400 px-2 py-1 rounded">{value}</Text>
-						</TouchableWithoutFeedback>
-					);
+		<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+			<View
+				className={cn('flex-1 w-full h-full p-2 gap-2', {
+					'items-center justify-center': !isResultAvailable,
 				})}
-			</View>
-			<View className="w-full flex-1">
-				<Timeline
-					data={shipmentTrackingData}
-					circleSize={15}
-					lineColor="rgba(0,0,0,0.2)"
-					circleColor="#f89e34"
-					renderDetail={rowData => {
-						const title = (
-							<Text style={{ fontWeight: 'bold' }}>{rowData.title}</Text>
-						);
-						const desc = rowData.description ? (
-							<Text>{rowData.description}</Text>
-						) : null;
+			>
+				<View className="flex-row w-full gap-2">
+					<ControlledInput
+						control={control}
+						name="trackingId"
+						placeholder="Enter Tracking Number"
+						errors={errors}
+					/>
+					<Button onPress={onSubmit}>
+						<ButtonText>Submit</ButtonText>
+					</Button>
+				</View>
+				<View className="flex-row w-full items-center justify-center gap-2 flex-wrap my-3">
+					{storeValue?.map((value, index) => {
 						return (
-							<View style={{ flex: 1 }}>
-								{title}
-								{desc}
-							</View>
+							<Chip
+								key={index}
+								text={value}
+								onPress={() => {
+									handleChipPress(value);
+								}}
+							/>
 						);
-					}}
-				/>
+					})}
+				</View>
+
+				{isResultAvailable && (
+					<>
+						<View className="w-full">
+							<Timeline
+								data={shipmentTrackingData}
+								circleSize={15}
+								showTime={false}
+								lineColor="rgba(0,0,0,0.2)"
+								circleColor="#f89e34"
+								columnFormat="single-column-left"
+								isUsingFlatlist={true}
+								eventDetailStyle={{
+									marginTop: -10,
+									marginBottom: 10,
+								}}
+								renderDetail={rowData => {
+									const time = (
+										<Text className="mb-2 font-light text-xs italic">
+											{rowData.time}
+										</Text>
+									);
+									const title = (
+										<Text style={{ fontWeight: 'bold' }}>{rowData.title}</Text>
+									);
+									const desc = rowData.description ? (
+										<Text>{rowData.description}</Text>
+									) : null;
+									return (
+										<View style={{ flex: 1 }}>
+											{time}
+											{title}
+											{desc}
+										</View>
+									);
+								}}
+							/>
+						</View>
+						<KeyboardAvoidingView
+							className="w-full gap-2"
+							behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+						>
+							<Input variant="outline" size="md">
+								<InputField placeholder="Enter Pin" />
+							</Input>
+							<Button
+								onPress={() => {
+									setIsAddressVisible(!isAddressVisible);
+								}}
+							>
+								<ButtonText>
+									{isAddressVisible ? 'Hide' : 'View'} Address
+								</ButtonText>
+							</Button>
+							{isAddressVisible && (
+								<View className="flex-1 flex-row gap-2 items-center p-1">
+									<IonIcon name="location-sharp" />
+									<Text className="text-start text-wrap max-w-full break-words">
+										Iris Bay Tower, Office No 1509 Business Bay, Dubai (UAE)
+										Iris Bay Tower Office No 1509 Business Bay, Dubai (UAE)
+									</Text>
+								</View>
+							)}
+						</KeyboardAvoidingView>
+					</>
+				)}
 			</View>
-			<KeyboardAvoidingView className="w-full gap-2">
-				<ControlledInput control={control} name="pin" placeholder="Enter Pin" />
-				<Button onPress={() => {}}>
-					<ButtonText>View Address</ButtonText>
-				</Button>
-			</KeyboardAvoidingView>
-		</View>
+		</ScrollView>
 	);
 };
 
