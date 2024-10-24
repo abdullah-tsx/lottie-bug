@@ -48,3 +48,4 @@ packager.pid
 *.jpeg
 *.gif
 *.svg
+/src/assets/*

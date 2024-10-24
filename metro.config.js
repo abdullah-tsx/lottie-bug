@@ -1,11 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+/* eslint @typescript-eslint/no-require-imports: 0 */
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { withNativeWind } = require('nativewind/metro');
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const {
 	wrapWithReanimatedMetroConfig,
-	// eslint-disable-next-line @typescript-eslint/no-require-imports
 } = require('react-native-reanimated/metro-config');
 
 /**
@@ -14,11 +11,29 @@ const {
  *
  * @type {import('metro-config').MetroConfig}
  */
-const baseConfig = getDefaultConfig(__dirname);
-const config = mergeConfig(baseConfig);
+
+// Get default Metro configuration
+const defaultConfig = getDefaultConfig(__dirname);
+const { assetExts, sourceExts } = defaultConfig.resolver;
+
+// Custom Metro configuration for handling SVGs
+const svgConfig = {
+	transformer: {
+		babelTransformerPath: require.resolve(
+			'react-native-svg-transformer/react-native',
+		),
+	},
+	resolver: {
+		assetExts: assetExts.filter(ext => ext !== 'svg'), // Remove SVG from assetExts
+		sourceExts: [...sourceExts, 'svg'], // Add SVG to sourceExts
+	},
+};
+
+// Merge default and custom configurations
+const baseConfig = mergeConfig(defaultConfig, svgConfig);
 
 // Combine Reanimated and NativeWind configurations
-const reanimatedConfig = wrapWithReanimatedMetroConfig(config);
+const reanimatedConfig = wrapWithReanimatedMetroConfig(baseConfig);
 const finalConfig = withNativeWind(reanimatedConfig, { input: './global.css' });
 
 module.exports = finalConfig;
