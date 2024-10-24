@@ -2,16 +2,13 @@ import 'react-native-reanimated';
 
 import React from 'react';
 
-import Layout from '@/components/layout';
 import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
-import HomeScreen from '@/screens/home';
+import ApplicationNavigator from '@/navigators/application-navigator';
 
 const App = () => {
 	return (
 		<GluestackUIProvider>
-			<Layout>
-				<HomeScreen />
-			</Layout>
+			<ApplicationNavigator />
 		</GluestackUIProvider>
 	);
 };

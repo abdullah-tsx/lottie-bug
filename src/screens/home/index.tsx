@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+	type FC,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import { useForm } from 'react-hook-form';
 import { Animated, Easing, Text, View } from 'react-native';
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
@@ -9,8 +15,10 @@ import ControlledInput from '@/components/controlled-input';
 import { Button, ButtonText } from '@/components/ui/button';
 import Chip from '@/components/ui/chip';
 import { Input, InputField } from '@/components/ui/input';
+import { useDisableSwipeBack } from '@/hooks/useDisableSwipeBack';
 import { useStorage } from '@/hooks/useStorage';
-import { TrackingFormData, TrackingSchema } from '@/schemas';
+import { type TrackingFormData, TrackingSchema } from '@/schemas';
+import { type ScreenProps } from '@/types';
 
 const shipmentTrackingData = [
 	{
@@ -46,7 +54,10 @@ const shipmentTrackingData = [
 	},
 ];
 
-const HomeScreen = () => {
+type HomeScreenProps = ScreenProps<'home'>;
+
+const HomeScreen: FC<HomeScreenProps> = () => {
+	useDisableSwipeBack();
 	const [isAddressVisible, setIsAddressVisible] = useState(false);
 	const [isResultAvailable, setIsResultAvailable] = useState(false);
 	const {
