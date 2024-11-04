@@ -1,13 +1,19 @@
 import { cn } from '@gluestack-ui/nativewind-utils/cn';
 import React from 'react';
 import {
-	Control,
+	type Control,
 	Controller,
-	FieldErrors,
-	FieldValues,
-	Path,
+	type FieldErrors,
+	type FieldValues,
+	type Path,
 } from 'react-hook-form';
-import { Text, TextInputProps, View, ViewProps } from 'react-native';
+import {
+	Platform,
+	Text,
+	type TextInputProps,
+	View,
+	type ViewProps,
+} from 'react-native';
 
 import { Input, InputField } from '@/components/ui/input';
 
@@ -36,6 +42,7 @@ const ControlledInput = <TFieldValues extends FieldValues>(
 					<Input
 						className={cn({
 							'border-red-500': Boolean(error?.message),
+							'h-12': Platform.OS === 'android',
 						})}
 						variant="outline"
 						size="md"

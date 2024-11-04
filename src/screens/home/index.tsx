@@ -6,7 +6,7 @@ import React, {
 	useState,
 } from 'react';
 import { useForm } from 'react-hook-form';
-import { Animated, Easing, Text, View } from 'react-native';
+import { Animated, Easing, Platform, Text, View } from 'react-native';
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 import Timeline from 'react-native-timeline-flatlist';
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -15,10 +15,10 @@ import ControlledInput from '@/components/controlled-input';
 import { Button, ButtonText } from '@/components/ui/button';
 import Chip from '@/components/ui/chip';
 import { Input, InputField } from '@/components/ui/input';
-import { useDisableSwipeBack } from '@/hooks/useDisableSwipeBack';
 import { useStorage } from '@/hooks/useStorage';
 import { type TrackingFormData, TrackingSchema } from '@/schemas';
 import { type ScreenProps } from '@/types';
+import { cn } from '@/utils/cn';
 
 const shipmentTrackingData = [
 	{
@@ -57,7 +57,6 @@ const shipmentTrackingData = [
 type HomeScreenProps = ScreenProps<'home'>;
 
 const HomeScreen: FC<HomeScreenProps> = () => {
-	useDisableSwipeBack();
 	const [isAddressVisible, setIsAddressVisible] = useState(false);
 	const [isResultAvailable, setIsResultAvailable] = useState(false);
 	const {
@@ -137,7 +136,10 @@ const HomeScreen: FC<HomeScreenProps> = () => {
 						placeholder="Enter Tracking Number"
 						errors={errors}
 					/>
-					<Button onPress={onSubmit}>
+					<Button
+						onPress={onSubmit}
+						className={cn({ 'h-12': Platform.OS === 'android' })}
+					>
 						<ButtonText>Submit</ButtonText>
 					</Button>
 				</View>

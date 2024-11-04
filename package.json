@@ -6,6 +6,7 @@
 		"preclean": "xattr -w com.apple.xcode.CreatedByBuildSystem true ios/build",
 		"android": "react-native run-android",
 		"android:clean": "cd android && ./gradlew clean && cd ..",
+		"apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
 		"ios": "react-native run-ios",
 		"ios:clean": "yarn preclean && cd ios && xcodebuild clean && cd ..",
 		"newpodinstall": "cd ios && RCT_NEW_ARCH_ENABLED=1 bundle exec pod install && cd ..",
